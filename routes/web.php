@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,13 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::group(['middleware'=>'auth','prefix'=>'admin'],function(){
     require __DIR__ . '/admin.php';
 });
+
+Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/newsdetail', [HomeController::class, 'newsdetail'])->name('newsdetail');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
