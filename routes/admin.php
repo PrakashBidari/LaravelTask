@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\NewsController;
-
+use App\Http\Controllers\admin\UserController;
 
 Route::get('/', function () {
     return view('backend.index');
@@ -12,7 +12,10 @@ Route::get('/', function () {
 
 
 Route::group(['middleware' => ['auth', 'check.admin']], function () {
-
+    Route::get('/users',[UserController::class,'index'])->name('user.index');
+    Route::get('/users/{user}',[UserController::class,'edit'])->name('user.edit');
+    Route::put('/users/{user}/update',[UserController::class,'update'])->name('user.update');
+    Route::delete('/users/{id}',[UserController::class,'destroy'])->name('user.delete');
 });
 
 
